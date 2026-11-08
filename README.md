@@ -9,7 +9,7 @@
     <img alt="GitHub release" src="https://img.shields.io/github/v/release/Cameri/nostream">
   </a>
   <a href="https://github.com/cameri/nostream/issues">
-    <img alt="GitHub issues" src="https://img.shields.io/github/issues/Cameri/nostream?style=plastic" />
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues/Cameri/nostream" />
   </a>
   <a href="https://github.com/cameri/nostream/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/Cameri/nostream" />
@@ -33,7 +33,7 @@
 </p>
 
 This is a [nostr](https://github.com/fiatjaf/nostr) relay, written in
-Typescript. Documentation, features and guides live on the project website:
+TypeScript. Documentation, features and guides live on the project website:
 **[nostream.dev](https://nostream.dev)**.
 
 This implementation is production-ready. See below for supported features.
@@ -102,7 +102,7 @@ NIPs and MIPs with a relay-specific implementation are listed here.
 - PostgreSQL 14.0
 - Redis
 - Node v24
-- Typescript
+- TypeScript
 
 ### Docker setups
 - Docker v20.10
@@ -129,21 +129,16 @@ pnpm add -g .
 nostream --help
 ```
 
-Install Docker following the [official guide](https://docs.docker.com/engine/install/).
-You may have to uninstall Docker if you installed it using a different guide.
-
 Clone repository and enter directory:
 ```
 git clone git@github.com:Cameri/nostream.git
 cd nostream
 ```
 
-Generate a secret with: `openssl rand -hex 128`
-Copy the output and paste it into an `.env` file:
+Set the `SECRET` environment variable to a long random secret:
 
 ```
-SECRET=aaabbbccc...dddeeefff
-# Secret shortened for brevity
+SECRET=$(openssl rand -hex 128)
 ```
 
 Start:
@@ -378,8 +373,8 @@ Prefer to explore all reference guides? See the [documentation index](https://no
    - Follow the required steps for all payments processors
    - On `.nostr/settings.yaml` file make the following changes:
      - `payments.processor` to `zebedee`
-     - `paymentsProcessors.zebedee.callbackBaseURL` to match your Nostream URL (e.g. `https://{YOUR_DOMAIN_HERE}/callbacks/zebedee`)
-   - Restart Nostream (`nostream stop` followed by `nostream start`)
+     - `paymentsProcessors.zebedee.callbackBaseURL` to match your nostream URL (e.g. `https://{YOUR_DOMAIN_HERE}/callbacks/zebedee`)
+   - Restart nostream (`nostream stop` followed by `nostream start`)
    - Read the in-depth guide for more information: [Set Up a Paid Nostr Relay with ZEBEDEE API](https://docs.zbdpay.com/payments/nostr/nostr-relay)
 
 3. [Nodeless](https://nodeless.io/?ref=587f477f-ba1c-4bd3-8986-8302c98f6731)
@@ -397,7 +392,7 @@ Prefer to explore all reference guides? See the [documentation index](https://no
    - On your `.nostr/settings.yaml` file make the following changes:
      - Set `payments.processor` to `nodeless`
      - Set `paymentsProcessors.nodeless.storeId` to your store ID
-   - Restart Nostream (`nostream stop` followed by `nostream start`)
+   - Restart nostream (`nostream stop` followed by `nostream start`)
 
 4. [OpenNode](https://www.opennode.com/)
    - Complete the step "Before you begin"
@@ -412,9 +407,9 @@ Prefer to explore all reference guides? See the [documentation index](https://no
 
    - On your `.nostr/settings.yaml` file make the following changes:
      - Set `payments.processor` to `opennode`
-   - Restart Nostream (`nostream stop` followed by `nostream start`)
+   - Restart nostream (`nostream stop` followed by `nostream start`)
 
-5. [LNBITS](https://lnbits.com/)
+5. [LNbits](https://lnbits.com/)
     - Complete the step "Before you begin"
     - Create a new wallet on you public LNbits instance
       - [Demo](https://legend.lnbits.com/) server must not be used for production
@@ -428,8 +423,8 @@ Prefer to explore all reference guides? See the [documentation index](https://no
     - On your `.nostr/settings.yaml` file make the following changes:
       - Set `payments.processor` to `lnbits`
       - set `lnbits.baseURL` to your LNbits instance URL (e.g. `https://{YOUR_LNBITS_DOMAIN_HERE}/`)
-      - Set `paymentsProcessors.lnbits.callbackBaseURL` to match your Nostream URL (e.g. `https://{YOUR_DOMAIN_HERE}/callbacks/lnbits`)
-    - Restart Nostream (`nostream stop` followed by `nostream start`)
+      - Set `paymentsProcessors.lnbits.callbackBaseURL` to match your nostream URL (e.g. `https://{YOUR_DOMAIN_HERE}/callbacks/lnbits`)
+    - Restart nostream (`nostream stop` followed by `nostream start`)
 
 6. [Alby](https://getalby.com/) or any LNURL Provider with [LNURL-verify](https://github.com/lnurl/luds/issues/182) support
     - Complete the step "Before you begin"
@@ -437,7 +432,7 @@ Prefer to explore all reference guides? See the [documentation index](https://no
     - On your `.nostr/settings.yaml` file make the following changes:
       - Set `payments.processor` to `lnurl`
       - Set `lnurl.invoiceURL` to your LNURL (e.g. `https://getalby.com/lnurlp/your-username`)
-    - Restart Nostream (`nostream stop` followed by `nostream start`)
+    - Restart nostream (`nostream stop` followed by `nostream start`)
 
 7. Nostr Wallet Connect (NIP-47 / NWC)
     - Complete the step "Before you begin"
@@ -450,7 +445,7 @@ Prefer to explore all reference guides? See the [documentation index](https://no
 
     - On your `.nostr/settings.yaml` file make the following changes:
       - Set `payments.processor` to `nwc`
-    - Restart Nostream (`nostream stop` followed by `nostream start`)
+    - Restart nostream (`nostream stop` followed by `nostream start`)
 
 8. Ensure payments are required for your public key
    - Visit https://{YOUR-DOMAIN}/
@@ -466,8 +461,6 @@ Prefer to explore all reference guides? See the [documentation index](https://no
 
 ## Running as a Service
 
-By default this server will run continuously until you stop it with Ctrl+C or until the system restarts.
-
 You can [install as a systemd service](https://www.swissrouting.com/nostr.html#installing-as-a-service) if you want the server to run again automatically whenever the system is restarted. For example:
 
 ```
@@ -477,7 +470,7 @@ $ nano /etc/systemd/system/nostream.service
 # "/home/nostr/nostream" with the directory where you cloned the repo.
 
 [Unit]
-Description=Nostr TS Relay
+Description=nostream
 After=network.target
 StartLimitIntervalSec=0
 
